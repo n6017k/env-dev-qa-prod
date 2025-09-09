@@ -39,14 +39,4 @@ jobs:
           echo "RUNNER_OS: ${{ runner.os }}"
           echo "RUNNER_TEMP: ${{ runner.temp }}"
           echo "RUNNER_TOOL_CACHE: ${{ runner.tool_cache }}"
-
-      - name: display OS info for self-hosted runner for linux & windows
-        if: runner.os == 'Linux' || runner.os == 'Windows'
-        run: |
-          uname -a
-          lsb_release -a || cat /etc/os-release
-          df -h
-          free -h
-          top -b -n 1 | head -20
-          env | sort
           
