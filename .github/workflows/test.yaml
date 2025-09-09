@@ -28,5 +28,5 @@ jobs:
 
       - name: read var this_env from environment variable
         env:
-          MY_ENV_VAR: ${{ vars.MY_ENV_VAR }}
+          MY_ENV_VAR: ${{ vars.THIS_ENV }}
         run: echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
