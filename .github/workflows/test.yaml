@@ -12,7 +12,7 @@ on:
 jobs:
   test:
     runs-on: self-hosted
-    environment: prod
+    environment: qa
 
     steps:
       - name: Checkout repository
