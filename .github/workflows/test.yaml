@@ -12,6 +12,7 @@ on:
 jobs:
   test:
     runs-on: self-hosted
+    environment: dev
 
     steps:
       - name: Checkout repository
@@ -24,3 +25,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: read var this_env from environment variable
+        env:
+          MY_ENV_VAR: ${{ vars.MY_ENV_VAR }}
+        run: echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
