@@ -9,12 +9,76 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  test:
+  test_dev:
+    runs-on: self-hosted
+    environment: dev
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: display env vars
+        run: |
+          echo "environment var: ${{ vars.THIS_ENV }}"
+    
+      - name: display github context
+        run: |
+          echo "GITHUB_REPOSITORY: ${{ github.repository }}"
+          echo "GITHUB_SHA: ${{ github.sha }}"
+          echo "GITHUB_ACTOR: ${{ github.actor }}"
+          echo "GITHUB_WORKFLOW: $GITHUB_WORKFLOW"
+          echo "GITHUB_EVENT_NAME: ${{ github.event_name }}"
+          echo "GITHUB_RUN_ID: ${{ github.run_id }}"
+          echo "GITHUB_RUN_NUMBER: ${{ github.run_number }}"
+          echo "GITHUB_JOB: ${{ github.job }}"
+
+      - name: display runner context
+        run: |
+          echo "RUNNER_NAME: ${{ runner.name }}"
+          echo "RUNNER_OS: ${{ runner.os }}"
+          echo "RUNNER_TEMP: ${{ runner.temp }}"
+          echo "RUNNER_TOOL_CACHE: ${{ runner.tool_cache }}"
+  test_qa:
+    needs: test_dev
     runs-on: self-hosted
     environment: qa
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: display env vars
+        run: |
+          echo "environment var: ${{ vars.THIS_ENV }}"
+    
+      - name: display github context
+        run: |
+          echo "GITHUB_REPOSITORY: ${{ github.repository }}"
+          echo "GITHUB_SHA: ${{ github.sha }}"
+          echo "GITHUB_ACTOR: ${{ github.actor }}"
+          echo "GITHUB_WORKFLOW: $GITHUB_WORKFLOW"
+          echo "GITHUB_EVENT_NAME: ${{ github.event_name }}"
+          echo "GITHUB_RUN_ID: ${{ github.run_id }}"
+          echo "GITHUB_RUN_NUMBER: ${{ github.run_number }}"
+          echo "GITHUB_JOB: ${{ github.job }}"
+
+      - name: display runner context
+        run: |
+          echo "RUNNER_NAME: ${{ runner.name }}"
+          echo "RUNNER_OS: ${{ runner.os }}"
+          echo "RUNNER_TEMP: ${{ runner.temp }}"
+          echo "RUNNER_TOOL_CACHE: ${{ runner.tool_cache }}"
+
+  test_prod:
+      needs: test_qa
+      runs-on: self-hosted
+      environment: prod
+
+      steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
