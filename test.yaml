@@ -3,19 +3,19 @@ name: test self-hosted runner
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - feature
+  
   workflow_dispatch:
+
+env:
+  IMAGE_NAME: "my-app-image"
 
 permissions:
   contents: read
 
 jobs:
   test_dev:
-    runs-on: self-hosted
-    environment: dev
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -23,7 +23,9 @@ jobs:
 
       - name: display env vars
         run: |
-          echo "environment var: ${{ vars.THIS_ENV }}"
+          echo "This is development environment"
+          image="hello world"
+          echo "image name: $image"
     
       - name: display github context
         run: |

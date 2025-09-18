@@ -1,0 +1,99 @@
+name: CI/CD Best Practices
+
+on:
+  push:
+    branches:
+      - main
+      - feature
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: "my-app-image"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    permissions:
+        contents: read
+        id-token: write
+
+    steps:
+      - name: status check
+        run: echo "The workflow is running"
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test
+      
+  # 🚀 Deploy to Dev (on push to main)
+  deploy-dev:
+    if: github.event_name == 'push'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment: dev
+
+    permissions:
+        contents: read
+        id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Dev
+        run: echo "🚀 Deploying to Dev environment..."
+
+  # 🚀 Deploy to Staging
+  deploy-staging:
+    if: github.event_name == 'push'
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: qa
+
+    permissions:
+        contents: read
+        id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Staging
+        run: echo "🚀 Deploying to Staging environment..."
+
+  # 🚀 Deploy to Production (with manual approval)
+  deploy-prod:
+    if: github.event_name == 'push'
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+
+    permissions:
+        contents: read
+        id-token: write
+        
+    environment: prod   # 🔑 Manual approval required in GitHub Settings
+    steps:
+      - name: Checkout code 👌
+        uses: actions/checkout@v4
+
+      - name: Deploy to Production
+        run: echo "🚀 Deploying to Production environment!"
+
+      
