@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   test_dev:
-    runs-on: self-hosted
+    runs-on: ubuntu:latest #self-hosted
 
     steps:
       - name: Checkout repository
@@ -24,7 +24,7 @@ jobs:
       - name: display env vars
         run: |
           echo "This is development environment"
-          image=${{ env.IMAGE_NAME }}
+          image="hello world"
           echo "image name: $image"
     
       - name: display github context
