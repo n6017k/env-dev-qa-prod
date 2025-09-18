@@ -14,7 +14,7 @@ env:
   IMAGE_NAME: "my-app-image"
 
 jobs:
-  build-test:
+  build-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -42,6 +42,43 @@ jobs:
       - name: Run tests
         run: npm test
       
-      
+  # 🚀 Deploy to Dev (on push to main)
+  deploy-dev:
+    if: github.event_name == 'push'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Dev
+        run: echo "🚀 Deploying to Dev environment..."
+
+  # 🚀 Deploy to Staging
+  deploy-staging:
+    if: github.event_name == 'push'
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: qa
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Staging
+        run: echo "🚀 Deploying to Staging environment..."
+
+  # 🚀 Deploy to Production (with manual approval)
+  deploy-prod:
+    if: github.event_name == 'push'
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: prod   # 🔑 Manual approval required in GitHub Settings
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Production
+        run: echo "🚀 Deploying to Production environment!"
 
       
