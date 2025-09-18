@@ -1,0 +1,34 @@
+{
+  "name": "nk-api",
+  "version": "1.0.0",
+  "description": "Basic API Server",
+  "keywords": [
+    "DevOps",
+    "Env",
+    "PR",
+    "Push"
+  ],
+  "homepage": "https://github.com/n6017k/env-dev-qa-prod#readme",
+  "bugs": {
+    "url": "https://github.com/n6017k/env-dev-qa-prod/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n6017k/env-dev-qa-prod.git"
+  },
+  "license": "ISC",
+  "author": "Nadeem",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "node --test",
+    "start": "node index.mjs"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+  ,
+  "devDependencies": {
+    "supertest": "^6.3.3"
+  }
+}
