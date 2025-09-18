@@ -8,7 +8,6 @@ on:
   workflow_dispatch:
 
 env:
-  THIS_ENV: "production"
   IMAGE_NAME: "my-app-image"
 
 permissions:
