@@ -3,7 +3,7 @@ name: test self-hosted runner
 on:
   push:
     branches:
-      - main
+      - feature
   
   workflow_dispatch:
 
@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   test_dev:
-    runs-on: ubuntu:latest #self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
