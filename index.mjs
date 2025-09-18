@@ -21,6 +21,16 @@ app.get('/env', (req, res) => {
   res.json({ env: process.env.NODE_ENV || 'development' });
 });
 
+// get two numbers and return their sum
+app.get('/add', (req, res) => {
+  const a = parseFloat(req.query.a);
+  const b = parseFloat(req.query.b);
+    if (isNaN(a) || isNaN(b)) {
+        return res.status(400).json({ error: 'Invalid numbers' });
+    }
+    res.json({ result: a + b });
+});
+
 let server;
 export function start(port = PORT) {
   return new Promise((resolve) => {

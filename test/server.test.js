@@ -21,3 +21,17 @@ test('GET /health returns OK', async () => {
   assert.equal(res.body.status, 'ok');
   await stop();
 });
+
+test('GET /add returns sum of two numbers', async () => {
+  const srv = await start(0);
+  const res = await request(app).get('/add?a=5&b=7').expect(200);
+  assert.equal(res.body.result, 12);
+  await stop();
+});
+
+test('GET /add with invalid numbers returns 400', async () => {
+  const srv = await start(0);
+  const res = await request(app).get('/add?a=foo&b=7').expect(400);
+  assert.equal(res.body.error, 'Invalid numbers');
+  await stop();
+});

@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod   # 🔑 Manual approval required in GitHub Settings
     steps:
-      - name: Checkout code
+      - name: Checkout code 👌
         uses: actions/checkout@v4
 
       - name: Deploy to Production
