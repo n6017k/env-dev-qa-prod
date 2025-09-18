@@ -28,7 +28,7 @@ jobs:
       - name: display env vars
         run: |
           echo "environment var: ${{ vars.THIS_ENV }}"
-          image = ${{ env.IMAGE_NAME }}
+          image=${{ env.IMAGE_NAME }}
           echo "image name: $image"
     
       - name: display github context
