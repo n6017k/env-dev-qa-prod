@@ -48,6 +48,11 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     environment: dev
+
+    permissions:
+        contents: read
+        id-token: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -61,6 +66,11 @@ jobs:
     needs: deploy-dev
     runs-on: ubuntu-latest
     environment: qa
+
+    permissions:
+        contents: read
+        id-token: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -73,6 +83,11 @@ jobs:
     if: github.event_name == 'push'
     needs: deploy-staging
     runs-on: ubuntu-latest
+
+    permissions:
+        contents: read
+        id-token: write
+        
     environment: prod   # 🔑 Manual approval required in GitHub Settings
     steps:
       - name: Checkout code 👌
