@@ -23,8 +23,7 @@
   "scripts": {
     "test": "node --test",
     "start": "node index.mjs",
-    "lint": "eslint . --ext .js,.mjs",
-    "format": "prettier --write ."
+    "dev": "nodemon index.mjs"
   },
   "dependencies": {
     "express": "^4.18.2"
