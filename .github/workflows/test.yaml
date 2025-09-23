@@ -1,0 +1,38 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+      - feature
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+    IMAGE_NAME: "my-app-image"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    permissions:
+        contents: read
+        id-token: write
+
+    steps:
+      - name: status check
+        run: echo "The workflow is running. image name is $IMAGE_NAME"
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: login to Azure (dev)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CICD_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.CICD_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.CICD_AZURE_SUBSCRIPTION_ID }}
+      
+      
