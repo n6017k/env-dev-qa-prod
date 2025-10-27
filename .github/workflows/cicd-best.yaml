@@ -60,7 +60,7 @@ jobs:
       - name: check environment
         id: env-check
         run: |
-          echo "environment: $ENVIRONMENT"
+          echo "environment: ${{ GITHUB.env }}"
           
   # 🚀 Deploy to Staging
   deploy-staging:
@@ -77,8 +77,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to Staging
-        run: echo "🚀 Deploying to ${{ job.environment.name }} environment..."
+      - name: get environment
+        id: env-get
+        run: |
+          echo "environment: ${{ job.status }}"
 
   # 🚀 Deploy to Production (with manual approval)
   deploy-prod:
