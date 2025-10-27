@@ -3,7 +3,6 @@ name: CI/CD Best Practices
 on:
   push:
     branches:
-      - main
       - feature
   pull_request:
     branches:
@@ -60,7 +59,7 @@ jobs:
       - name: check environment
         id: env-check
         run: |
-          echo "environment: ${{ GITHUB.env }}"
+          echo "environment: ${{ GITHUB.env.environment }}"
           
   # 🚀 Deploy to Staging
   deploy-staging:
