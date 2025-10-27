@@ -60,7 +60,7 @@ jobs:
       - name: check environment
         id: env-check
         run: |
-          echo "Deploying to ${{ github.env}} environment"
+          echo "Deploying to ${{ github.environment}} environment"
 
   # 🚀 Deploy to Staging
   deploy-staging:
