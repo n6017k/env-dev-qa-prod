@@ -57,8 +57,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to Dev
-        run: echo "🚀 Deploying to Dev environment..."
+      - name: check environment
+        id: env-check
+        run: |
+          echo "Deploying to ${{ github.env}} environment"
 
   # 🚀 Deploy to Staging
   deploy-staging:
@@ -76,7 +78,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to Staging
-        run: echo "🚀 Deploying to Staging environment..."
+        run: echo "🚀 Deploying to ${{github.env}} environment..."
 
   # 🚀 Deploy to Production (with manual approval)
   deploy-prod:
